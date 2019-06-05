@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+bool isValid(string s) {
+    if(s=="") return true;
+    if(s.length()%2!=0) return false;
+    stack<char> ss;
+    for(auto i:s) {
+        if (i=='{' || i=='('|| i=='[') ss.push(i);
+        else {
+            if (ss.size() == 0 && (i == ']' || i == '}' || i == ')')) return false;
+            else if ((i == '}' && ss.top() != '{') || (i == ']' && ss.top() != '[') || (i == ')' && ss.top() != '(') )
+                return false;
+            else
+                ss.pop();
+        }
+    }
+    if (ss.size() != 0 ) return false;
+    return true;
+}
+
+
+int main(){
+
+    stack<int> a;
+    cout << a.size() <<endl;
+
+    if (isValid("{{)}")){
+        cout << "yes" <<endl;
+    } else cout << "no" << endl;
+
+
+
+    return  0;
+}
