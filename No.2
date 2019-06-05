@@ -1,0 +1,40 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int carray = 0;                          //进位符
+        ListNode* copy1 = l1, *copy2 = l2;       
+        while(true){
+            copy1->val += copy2->val;            //给1原地赋值
+            if(carray == 1) copy1->val += 1;     //上一位的进位
+            if(copy1->val >= 10){                //判断是否进位
+                carray = 1;
+                copy1->val %= 10;
+            }
+            else
+                carray = 0;
+            if(copy1->next == NULL && copy2->next == NULL){
+                if(carray == 1) copy1->next = new ListNode(1);      //1，2都结束，退出循环
+                break;                                              //最后需要判断一次进位
+            }
+            else if(copy1->next == NULL)
+                copy1->next = new ListNode(0);       //1结束给1补0
+            else if(copy2->next == NULL)
+            {
+                copy2->val = 0;                      //2结束给2补0
+                copy1 = copy1->next;
+                continue;
+            }
+            copy1 = copy1->next;
+            copy2 = copy2->next;
+        }
+        return l1;
+    }
+};
