@@ -1,0 +1,22 @@
+// 20 ms
+
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0) return false;
+        int len=1;
+        while(x/len>=10){
+            len=len*10;
+        }
+        while(x){
+            int right=x/len;
+            int left=x%10;
+            if(left!=right) return false;
+            x=x%len;
+            x=x/10;
+            len=len/100;
+        }
+        return true;
+    }
+};
