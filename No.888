@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> fairCandySwap(vector<int>& A, vector<int>& B) {
+            long suma=0,sumb=0;
+            for(auto i:A) suma+=i;
+            for(auto i:B) sumb+=i;
+            long avg=(suma-sumb)/2;
+            int counta=-1,countb=-1;
+            vector<int> c;
+            for(auto i:A){
+                for (auto j:B){
+                    if(i-j==avg){
+                        c.push_back(i);
+                        c.push_back(j);
+                        return c;
+                    }
+                }       
+            }
+        return c;
+    }
+};
