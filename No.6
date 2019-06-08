@@ -1,0 +1,22 @@
+//4ms 
+
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows==1) return s;
+        vector<string> str(numRows,"");
+        int numConn=0;
+        bool judgeConn=false;
+        for(auto i:s){
+            if(numConn==numRows-1) judgeConn=true;
+            if(numConn==0) judgeConn=false;
+            str[numConn]+=i;
+            if(!judgeConn) numConn++;
+            else numConn--;
+        }
+        string res;
+        for(auto i:str) res+=i;
+        return res;
+    }
+};
