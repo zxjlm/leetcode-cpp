@@ -1,0 +1,36 @@
+//4ms
+class Solution {
+public:
+    unordered_map<int,string> ma;
+    vector<string> res;
+    
+    void rel(){
+        ma.insert(make_pair(2,"abc"));
+        ma.insert(make_pair(3,"def"));
+        ma.insert(make_pair(4,"ghi"));
+        ma.insert(make_pair(5,"jkl"));
+        ma.insert(make_pair(6,"mno"));
+        ma.insert(make_pair(7,"pqrs"));
+        ma.insert(make_pair(8,"tuv"));
+        ma.insert(make_pair(9,"wxyz"));
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        if(digits=="") return res;
+        rel();
+        combination(digits,0,"");
+        
+        return res;
+    }
+    
+    void combination(const string& digits,int index , const string& s){
+        if(index==digits.length()){
+            res.push_back(s);
+            return;
+        }
+        
+        for(int i=0;i<ma[digits[index]-'0'].size();i++)
+            combination(digits,index+1,s+ ma[digits[index]-'0'][i] );
+        return;
+    }
+};
