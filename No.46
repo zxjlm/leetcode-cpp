@@ -1,0 +1,34 @@
+//这是底层实现，实际上可以使用next_permutation来完成
+
+class Solution {
+public:
+    vector<vector<int> > res;
+vector<bool > used;
+void recursion(vector<int>& nums,int index,vector<int> tmpres){
+    if(index==nums.size()){
+        res.push_back(tmpres);
+        return;
+    }
+
+    for(int i=0;i<nums.size();i++){
+        if(used[i]) continue;
+        tmpres.push_back(nums[i]);
+        used[i]= true;
+        recursion(nums,index+1,tmpres);
+        used[i]= false;
+        tmpres.pop_back();
+    }
+    return;
+}
+
+vector<vector<int>> permute(vector<int>& nums) {
+    if (nums.size()==0) return res;
+    used=vector<bool >(nums.size(), false);
+    vector<int> tmpres;
+    recursion(nums,0,tmpres);
+
+    return res;
+}
+
+};
+
