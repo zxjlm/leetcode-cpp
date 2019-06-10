@@ -1,0 +1,41 @@
+class Solution {
+public:
+    
+vector<string> res;
+
+
+
+void regress(string s,int index,string ss){
+    if(index==4 &&  s<="255" && s[0]!='0' &&s.length()==3 ||( s.length()==2 &&index==4 && s[0]!='0') || s.length()==1 && index==4 ){
+        ss+=s;
+        res.push_back(ss);
+        return;
+    }
+
+    if(index>=4  ) return;
+
+    for(int i=1;i<=3;i++){
+        if(i>s.length()-1) return;
+        string tmp=s.substr(i,s.length()-1);
+        if(!judge(s.substr(0,i))) return;
+        regress(tmp,index+1,ss+s.substr(0,i)+".");
+    }
+
+}
+
+vector<string> restoreIpAddresses(string s) {
+    if(s=="" || s.length()<4) return res;
+    
+    regress(s,1,"");
+
+    return res;
+
+}
+    
+    bool judge(string s){
+        if(s>"255" && s.length()==3) return false;
+        if(s.length()>=2 && s[0]=='0') return false;
+        
+        return true;
+    }
+};
