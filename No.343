@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> memo;
+    int integerBreak(int n) {
+        memo=vector<int>(n+1,-1);
+        return recursion(n);
+    }
+    
+    int recursion(int n){
+        int res=-1;
+        
+        if(n==1) return 1;
+        if(memo[n]!=-1) return memo[n];
+        
+        for(int i=1;i<n;i++){
+            res = max(res,max(i*recursion(n-i),i*(n-i)));
+        }
+        memo[n]=res;
+        
+        return res;
+    }
+};
