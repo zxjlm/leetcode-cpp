@@ -1,0 +1,54 @@
+////20ms
+
+class Solution {
+public:
+    vector<vector<string>> res;
+    vector<bool> col,dig1,dig2;
+    
+    vector<vector<string>> solveNQueens(int n) {
+        
+        col=vector<bool>(n,false);
+        dig1=vector<bool>(2*n-1,false);
+        dig2=vector<bool>(2*n-1,false);
+        
+        vector<int> row;
+        
+
+        putQueen(row,n,0);
+        
+        return res;
+    }
+    
+     
+    void putQueen(vector<int> row,int n,int index){
+        
+        if(n==index){
+            res.push_back(addQueen(row,n));
+            return;
+        }
+        
+        for(int i=0;i<n;i++){
+            if(!col[i] && !dig1[index+i] && !dig2[index-i+n-1]){
+                row.push_back(i);
+                col[i]=true;
+                dig1[i+index]=true;
+                dig2[index-i+n-1]=true;
+                putQueen(row,n,index+1);
+                col[i]=false;
+                dig1[i+index]=false;
+                dig2[index-i+n-1]=false;   
+                row.pop_back();
+            }
+        }
+        
+        return;
+    }
+    
+    vector<string> addQueen(vector<int> row,int n){
+        vector<string> board(n,string(n,'.'));
+        for (int i=0;i<n;i++){
+            board[i][row[i]]='Q';
+        }
+        return board;
+    }
+};
