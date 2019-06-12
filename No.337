@@ -1,0 +1,68 @@
+//dfs  会超时
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    int rob(TreeNode* root) {
+       return  dfs(root);
+    }
+    
+    int dfs(TreeNode* root){
+        if(root==NULL) return 0;
+        
+        int res1=0,res2=0;
+        
+        if(root->left){
+            res1+=dfs(root->left->left)+dfs(root->left->right);
+        }
+        if(root->right){
+            res1+=dfs(root->right->left)+dfs(root->right->right);
+        }
+        res1+=root->val;
+        
+        res2=dfs(root->left)+dfs(root->right);
+        
+        return max(res1,res2);
+        
+    }
+
+};
+
+
+//dp  28ms
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    int rob(TreeNode* root) {
+        int* res = dp(root);
+        return max(res[0],res[1]);
+    }
+    
+    int* dp(TreeNode* root){
+        if(root==NULL) {int* res=new int[2];res[0]=0;res[1]=0;return res;}
+        int* left = dp(root->left);
+        int* right = dp(root->right);
+        int* res=new int[2];
+        res[0]=root->val+left[1]+right[1];
+        res[1]=max(left[1],left[0])+max(right[1],right[0]);
+        return res;
+    }
+};
