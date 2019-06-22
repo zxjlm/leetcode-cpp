@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<string> res;
+    
+    vector<string> generateParenthesis(int n) {
+        recursion("(",n,1,0);
+        return res;
+    }
+    
+    void recursion(string tmp,int n,int l,int r){
+        if(tmp.length() == n*2 && l==r ){
+            res.push_back(tmp);
+            return;
+        }
+        
+        if(l<n)
+            recursion(tmp+"(",n,l+1,r);
+        if(r<l)
+            recursion(tmp+")",n,l,r+1);
+        
+    }
+};
