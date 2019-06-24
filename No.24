@@ -1,0 +1,31 @@
+//8ms
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(head==NULL||head->next==NULL) return head;
+        //ListNode* l=head,r=head->next,tmp;
+        ListNode* ha = new ListNode(1);
+        ha->next=head;
+        ListNode* p=ha, *q=ha;
+        while(q->next!=NULL && q->next->next!=NULL ){
+            q=p->next;
+            ListNode* tmp = q->next;
+            q->next=q->next->next;
+            p->next=tmp;
+            tmp->next=q;
+            p=q;
+        }
+        
+        return ha->next;
+        
+    }
+};
