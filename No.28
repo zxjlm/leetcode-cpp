@@ -1,0 +1,24 @@
+//4ms
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int len=needle.length();
+        if(needle=="") return 0;
+        if(haystack == "" || haystack.length()<len) return -1;
+        for(int i =0 ;i< haystack.length()-len+1;i++){
+            if(haystack[i] == needle[0] && judge(haystack.substr(i,i+len),needle,len)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    bool judge(string a,string b,int len){
+        for(int i=0;i<len;i++)
+            if(a[i]!=b[i])
+                return false;
+        
+        return true;
+    }
+};
